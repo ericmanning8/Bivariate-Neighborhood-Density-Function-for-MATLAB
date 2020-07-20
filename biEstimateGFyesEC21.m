@@ -1,9 +1,6 @@
 %Bivariate estimation of GF L(d) with NO edge corrections (loop 2 ==> 1)
 
-function gfl_21 = biEstimateGFyesEC21(gfl_21, x1, y1, x2, y2, t_incr, last_t, n, n2, bin, xmin, ymin, xmax, ymax, area)
-
-    long i;
-    long j;        % Counters.
+function gfl_21 = biEstimateGFyesEC21(x1, y1, x2, y2, t_incr, last_t, n, n2, bin, xmin, ymin, xmax, ymax, area)
     long k = 0;        % k(t) at length scale t_incr
     long dx;
     long dy;
@@ -13,7 +10,7 @@ function gfl_21 = biEstimateGFyesEC21(gfl_21, x1, y1, x2, y2, t_incr, last_t, n,
     long edge_wgt;
     long method;        % Edge correction factor.
     
-    if(last_t < 0)
+    if (last_t < 0)
         last_t = 0;
     end
     
@@ -32,17 +29,11 @@ function gfl_21 = biEstimateGFyesEC21(gfl_21, x1, y1, x2, y2, t_incr, last_t, n,
                     
                     if(method == 0)
                         edge_wgt = 1;
-                    end
-                    
-                    if(method == 1)
+                    else if(method == 1)
                         edge_wgt = edge_corr1(min(dx, dy), dij);    %%Need edge_corr functions!!
-                    end
-                    
-                    if(method == 2)
+                    else if(method == 2)
                         edge_wgt = edge_corr2(dx, dy, dx2, dy2, dij);
-                    end
-                    
-                    if(method == 3)
+                    else if(method == 3)
                         edge_wgt = edge_corr3(dx, dy, dx2, dy2, dij);
                     end
                     
@@ -52,7 +43,7 @@ function gfl_21 = biEstimateGFyesEC21(gfl_21, x1, y1, x2, y2, t_incr, last_t, n,
             end
         end
         
-        if(bin == 1)
+        if( bin == 1)
             gfl_21(i, bin) = area * (gfl_21(i, bin) / (n - 1));    %final GF L value for i at bin
         else
             gfl_21(i, bin) = gfl_21(i, bin - 1) + area * (gfl_21(i, bin) / (n - 1));   %final GF L value for i at bin

@@ -1,16 +1,19 @@
 %Bivariate estimation of GF L(d) with NO edge corrections (loop 2 ==> 1)
 
-function gfl_21 = biEstimateGFyesEC21(x1, y1, x2, y2, t_incr, last_t, n, n2, bin, xmin, ymin, xmax, ymax, area)
-    long k = 0;        % k(t) at length scale t_incr
-    long dx;
-    long dy;
-    long dx2;
-    long dy2;
-    long dij;        % dist to boundary buffers.
-    long edge_wgt;
-    long method;        % Edge correction factor.
+function biEstimateGFyesEC21(gfl_21, x1, y1, x2, y2, t_incr, last_t, n, n2, bin, xmin, ymin, xmax, ymax, area)
+
+    double i;
+    double j;        % Counters.
+    double k;        % k(t) at length scale t_incr
+    double dx;
+    double dy;
+    double dx2;
+    double dy2;
+    double dij;        % dist to boundary buffers.
+    double edge_wgt;
+    double method;        % Edge correction factor.
     
-    if (last_t < 0)
+    if(last_t < 0)
         last_t = 0;
     end
     
@@ -29,11 +32,17 @@ function gfl_21 = biEstimateGFyesEC21(x1, y1, x2, y2, t_incr, last_t, n, n2, bin
                     
                     if(method == 0)
                         edge_wgt = 1;
-                    else if(method == 1)
+                    end
+                    
+                    if(method == 1)
                         edge_wgt = edge_corr1(min(dx, dy), dij);    %%Need edge_corr functions!!
-                    else if(method == 2)
+                    end
+                    
+                    if(method == 2)
                         edge_wgt = edge_corr2(dx, dy, dx2, dy2, dij);
-                    else if(method == 3)
+                    end
+                    
+                    if(method == 3)
                         edge_wgt = edge_corr3(dx, dy, dx2, dy2, dij);
                     end
                     
@@ -43,7 +52,7 @@ function gfl_21 = biEstimateGFyesEC21(x1, y1, x2, y2, t_incr, last_t, n, n2, bin
             end
         end
         
-        if( bin == 1)
+        if(bin == 1)
             gfl_21(i, bin) = area * (gfl_21(i, bin) / (n - 1));    %final GF L value for i at bin
         else
             gfl_21(i, bin) = gfl_21(i, bin - 1) + area * (gfl_21(i, bin) / (n - 1));   %final GF L value for i at bin

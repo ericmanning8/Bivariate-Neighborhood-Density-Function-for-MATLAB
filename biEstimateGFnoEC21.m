@@ -1,6 +1,6 @@
 %Bivariate estimation of GF L(d) with NO edge corrections
 
-function biEstimateGFnoEC21(gfl_21, x1, y1, x2, y2, t_incr, bin, n, n2, area)
+function gfl_21 = biEstimateGFnoEC21(x1, y1, x2, y2, t_incr, bin, n, n2, area)
     double i;
     double j;        % Counters
     

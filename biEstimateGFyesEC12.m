@@ -1,6 +1,6 @@
 %Bivariate estimation of GF L(d) with NO edge corrections (loop 1 ==> 2)
 
-function biEstimateGFyesEC12(gfl_12, x1, y1, x2, y2, t_incr, last_t, n, n2, bin, xmin, ymin, xmax, ymax, area)
+function gfl_12 = biEstimateGFyesEC12(x1, y1, x2, y2, t_incr, last_t, n, n2, bin, xmin, ymin, xmax, ymax, area)
 
     double i;
     double j;        % Counters.

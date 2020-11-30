@@ -1,24 +1,14 @@
 %Bivariate estimation of GF L(d) with NO edge corrections (loop 2 ==> 1)
 
 function gfl_21 = biEstimateGFyesEC21(x1, y1, x2, y2, t_incr, last_t, n, n2, bin, xmin, ymin, xmax, ymax, area)
-
-    double i;
-    double j;        % Counters.
-    double k;        % k(t) at length scale t_incr
-    double dx;
-    double dy;
-    double dx2;
-    double dy2;
-    double dij;        % dist to boundary buffers.
-    double edge_wgt;
-    double method;        % Edge correction factor.
+    gfl_21 = zeros(n, bin);
     
     if(last_t < 0)
         last_t = 0;
     end
     
-    for(i = 1:n2) %LOOP 2==>1
-        for(j = 1:n)
+    for i = 1:n2  %LOOP 2==>1
+        for j = 1:n
             if(((abs(x2(i) - x1(j)) < t_incr) && (abs(y2(i) - y1(j)) < t_incr)))
                 dij = EuclDistance(x2(i), y2(i), x1(j), y1(j)); %Distance between points
                 
@@ -32,17 +22,11 @@ function gfl_21 = biEstimateGFyesEC21(x1, y1, x2, y2, t_incr, last_t, n, n2, bin
                     
                     if(method == 0)
                         edge_wgt = 1;
-                    end
-                    
-                    if(method == 1)
+                    elseif(method == 1)
                         edge_wgt = edge_corr1(min(dx, dy), dij);    %%Need edge_corr functions!!
-                    end
-                    
-                    if(method == 2)
+                    elseif(method == 2)
                         edge_wgt = edge_corr2(dx, dy, dx2, dy2, dij);
-                    end
-                    
-                    if(method == 3)
+                    elseif(method == 3)
                         edge_wgt = edge_corr3(dx, dy, dx2, dy2, dij);
                     end
                     

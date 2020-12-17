@@ -6,8 +6,6 @@ file2 = 'tests/Drif correct cav1 and grouped final 6500-25255.csv'; %enter file 
 data1 = fopen(file1);
 data2 = fopen(file2);
 
-%NOT SURE HOW TO DEFINE THE FOLLOWING VARIABLES
-
 x1 = data1(:,6);
 y1 = data1(:,7);
 x2 = data2(:,9);
@@ -22,11 +20,40 @@ if ((bins * t) > (max_step + t))
     bins = bins - 1;
 end
 
-% xmin =
-% ymin = 
-% xmax = 
-% ymax = 
-% area = 
+xmin;
+
+    if (min(x1) < min(x2))
+            xmin = min(x1);
+    else
+            xmin = min(x2);
+    end   
+    
+ymin; 
+
+    if (min(y1) < min(y2))
+            ymin = min(y1);
+    else
+            ymin = min(y2);
+    end 
+    
+xmax;
+
+    if (max(x1) > max(x2))
+            xmax = max(x1);
+    else
+            xmax = max(x2);
+    end 
+    
+ymax;
+
+    if (max(y1) > max(y2))
+            ymax = max(y1);
+    else
+            xmax = max(y2);
+    end 
+
+
+area = (xmax-xmin)*(ymax-ymin);
 
 %Edge Correction or nah?
 

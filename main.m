@@ -21,37 +21,10 @@ if ((bins * t) > (max_step + t))
     bins = bins - 1;
 end
 
-xmin = 0;
-
-    if (min(x1) < min(x2))
-            xmin = min(x1);
-    else
-            xmin = min(x2);
-    end   
-    
-ymin = 0; 
-
-    if (min(y1) < min(y2))
-            ymin = min(y1);
-    else
-            ymin = min(y2);
-    end 
-    
-xmax = 0;
-
-    if (max(x1) > max(x2))
-            xmax = max(x1);
-    else
-            xmax = max(x2);
-    end 
-    
-ymax = 0;
-
-    if (max(y1) > max(y2))
-            ymax = max(y1);
-    else
-            xmax = max(y2);
-    end 
+xmin = min(min(x1), min(x2));
+ymin = min(min(y1), min(y2));
+xmax = max(max(x1), max(x2));
+ymax = max(max(y1), max(y2));
     
 area = (xmax-xmin)*(ymax-ymin);
 
@@ -60,7 +33,7 @@ area = (xmax-xmin)*(ymax-ymin);
 t_incr = 0;
 i = 1;
 
-%Edge Correction or nah?
+%Edge Correction
 
 method = ChooseEdgeCorrection();
 

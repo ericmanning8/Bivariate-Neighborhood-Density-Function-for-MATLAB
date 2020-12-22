@@ -13,7 +13,7 @@ y2 = data2(:,10);
 t = 10;
 n = length(x1);
 n2 = length(x2);
-max_step = 1000;
+max_step = 10000;
 
 bins = ceil(max_step / t) + 1;
     
@@ -27,6 +27,9 @@ xmax = max(max(x1), max(x2));
 ymax = max(max(y1), max(y2));
     
 area = (xmax-xmin)*(ymax-ymin);
+
+gfl_12 = zeros(n + 1, bins + 1);
+gfl_21 = zeros(n + 1, bins + 1);
 
 %looping
 

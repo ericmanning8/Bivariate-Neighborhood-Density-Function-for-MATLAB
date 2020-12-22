@@ -1,8 +1,8 @@
 %Main Script%
 
 %Data Load-In
-file1 = 'tests/Drif correct actin final 25255-50255.csv'; %enter file name at 'fileName'
-file2 = 'tests/Drif correct cav1 and grouped final 6500-25255.csv'; %enter file name at 'fileName'
+file1 = 'tests/actin truncated.csv'; %enter file name at 'fileName'
+file2 = 'tests/cav1 truncated.csv'; %enter file name at 'fileName'
 data1 = readmatrix(file1);
 data2 = readmatrix(file2);
 
@@ -40,11 +40,11 @@ method = ChooseEdgeCorrection();
 while(i <= bins)
     
     if (method == 1) %1 is with edge corrections
-        biEstimateGFyesEC12(x1, y1, x2, y2, t_incr, last_t, n, n2, i, xmin, ymin, xmax, ymax, area);
-        biEstimateGFyesEC21(x1, y1, x2, y2, t_incr, last_t, n, n2, i, xmin, ymin, xmax, ymax, area);
+        gfl_12 = biEstimateGFyesEC12(x1, y1, x2, y2, t_incr, last_t, n, n2, i, xmin, ymin, xmax, ymax, area);
+        gfl_21 = biEstimateGFyesEC21(x1, y1, x2, y2, t_incr, last_t, n, n2, i, xmin, ymin, xmax, ymax, area);
     else %without edge corrections
-        biEstimateGFnoEC12(x1, y1, x2, y2, t_incr, i, n, n2, area);
-        biEstimateGFnoEC21(x1, y1, x2, y2, t_incr, i, n, n2, area);
+        gfl_12 = biEstimateGFnoEC12(x1, y1, x2, y2, t_incr, i, n, n2, area);
+        gfl_21 = biEstimateGFnoEC21(x1, y1, x2, y2, t_incr, i, n, n2, area);
     end
     
     i = i + 1;
@@ -54,4 +54,4 @@ end
 
 %DISPLAY 
 contourf(gfl_12);
-countourf(gfl_21);
+contourf(gfl_21);

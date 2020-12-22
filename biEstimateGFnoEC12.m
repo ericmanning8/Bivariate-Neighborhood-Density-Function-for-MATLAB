@@ -1,8 +1,7 @@
 %Bivariate estimation of GF L(d) with NO edge corrections
 
 function gfl_12 = biEstimateGFnoEC12(x1, y1, x2, y2, t_incr, bin, n, n2, area)
-    gfl_12 = zeros(n, bin);
-
+  
     for i = 1:n
         for j = 1:n2
             if(((abs(x1(i)-x2(j)) < t_incr) && (abs(y1(i)-y2(j)) < t_incr)))

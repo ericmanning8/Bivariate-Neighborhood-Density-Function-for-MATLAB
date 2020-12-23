@@ -40,7 +40,10 @@ i = 1;
 
 method = ChooseEdgeCorrection();
 
+wb = waitbar(0, 'Computing Cross-Clustering Function...');
 while(i <= bins)
+    percentDone = (t_incr / max_step);
+    waitbar(percentDone, wb);
     
     if (method == 1) %1 is with edge corrections
         gfl_12 = biEstimateGFyesEC12(x1, y1, x2, y2, t_incr, last_t, n, n2, i, xmin, ymin, xmax, ymax, area);
@@ -54,6 +57,7 @@ while(i <= bins)
     t_incr = t_incr + t;
     
 end 
+close(wb);
 
 %DISPLAY 
 contourf(gfl_12);

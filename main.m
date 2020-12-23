@@ -46,8 +46,8 @@ while(i <= bins)
         gfl_12 = biEstimateGFyesEC12(x1, y1, x2, y2, t_incr, last_t, n, n2, i, xmin, ymin, xmax, ymax, area);
         gfl_21 = biEstimateGFyesEC21(x1, y1, x2, y2, t_incr, last_t, n, n2, i, xmin, ymin, xmax, ymax, area);
     else %without edge corrections
-        gfl_12 = biEstimateGFnoEC12(x1, y1, x2, y2, t_incr, i, n, n2, area);
-        gfl_21 = biEstimateGFnoEC21(x1, y1, x2, y2, t_incr, i, n, n2, area);
+        gfl_12 = biEstimateGFnoEC12(gfl_12, x1, y1, x2, y2, t_incr, i, n, n2, area);
+        gfl_21 = biEstimateGFnoEC21(gfl_21, x1, y1, x2, y2, t_incr, i, n, n2, area);
     end
     
     i = i + 1;

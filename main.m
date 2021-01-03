@@ -13,7 +13,7 @@ y2 = data2(:,10);
 t = 10;
 n = length(x1);
 n2 = length(x2);
-max_step = 10000;
+max_step = 1000;
 
 bins = ceil(max_step / t) + 1;
     

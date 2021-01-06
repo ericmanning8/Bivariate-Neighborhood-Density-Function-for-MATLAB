@@ -62,3 +62,42 @@ close(wb);
 %DISPLAY 
 contourf(gfl_12);
 contourf(gfl_21);
+
+% simulation 
+for i = 1:n2        % Loop through 2 -> 1 (2 = focal, 1 = assessed)
+    for j = 1:n
+        if ((abs(x2(i) - x1(j)) < t_incr) && (abs(y2(i) - y1(j)) < t_incr))  % Skip points outside bounding box (Fisher, 1990)
+
+            dij = EuclDistance(x2(i), y2(i), x1(j), y1(j)); % Distance between points
+
+            if (dij <= t_incr && dij > last_t) % If the point's in the circle ...
+
+                dx = dist_x(x2(i), xmin, xmax);
+                dy = dist_y(y2(i), ymin, ymax); % Distance to boundaries
+                dx2 = max(xmax - x2(i), x2(i) - xmin); 
+                dy2 = max(ymax - y2(i), y2(i) - ymin);
+
+                method = assess_edge(dij, dx, dy, dx2, dy2);
+
+                if method == 0 
+                    edge_wgt = 1;
+                elseif method == 1 
+                    edge_wgt = edge_corr1(min(dx, dy), dij);
+                elseif method == 2
+                    edge_wgt = edge_corr2(dx, dy, dx2, dy2, dij);
+                elseif method == 3 
+                    edge_wgt = edge_corr3(dx, dy, dx2, dy2, dij);
+                end
+                
+                gfl_21(i, bin) = gfl_21(i, bin) + edge_wgt; % Update value of GF l(d)
+            end
+        end
+    end
+
+    if bin == 1
+        gfl_21(i, bin) = area * (gfl_21(i, bin) / ((n - 1))); % Final GF L value for i at bin
+    else
+        gfl_21(i, bin) = gfl_21(i, bin - 1) + area * (gfl_21(i, bin) / ((n - 1))); % Final GF L value for i at bin
+    end
+    
+end

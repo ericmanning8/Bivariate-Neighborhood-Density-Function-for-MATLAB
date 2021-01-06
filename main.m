@@ -6,6 +6,7 @@ file2 = 'tests/cav1 truncated.csv'; %enter file name at 'fileName'
 data1 = readmatrix(file1);
 data2 = readmatrix(file2);
 
+% variable intialization
 x1 = data1(:,6);
 y1 = data1(:,7);
 x2 = data2(:,9);
@@ -21,27 +22,27 @@ if ((bins * t) > (max_step + t))
     bins = bins - 1;
 end
 
+% boundary variables 
 xmin = min(min(x1), min(x2));
 ymin = min(min(y1), min(y2));
 xmax = max(max(x1), max(x2));
 ymax = max(max(y1), max(y2));
-    
 area = (xmax-xmin)*(ymax-ymin);
 
+% initialize data structures 
 gfl_12 = zeros(n + 1, bins + 1);
 gfl_21 = zeros(n + 1, bins + 1);
 
 %looping
-
 t_incr = 0;
 i = 1;
 
 %Edge Correction
-
 method = ChooseEdgeCorrection();
 
 wb = waitbar(0, 'Computing Cross-Clustering Function...');
 while(i <= bins)
+    
     percentDone = (t_incr / max_step);
     waitbar(percentDone, wb);
     

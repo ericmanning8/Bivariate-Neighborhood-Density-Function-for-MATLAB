@@ -1,14 +1,15 @@
 %Main Script%
 
 %Data Load-In
-file1 = 'tests/actin truncated 4.csv'; %enter file name
-file2 = 'tests/cav1 truncated 4.csv'; %enter file name
+file1 = 'tests/actin truncated 2.csv'; %enter file name
+file2 = 'tests/cav1 truncated 2.csv'; %enter file name
 data1 = readmatrix(file1);
 data2 = readmatrix(file2);
 
 %Variable intialization: adjust column indices accordingly for x1,x2,y1,y2
 x1 = data1(:,6);
 y1 = data1(:,7);
+
 x2 = data2(:,9);
 y2 = data2(:,10);
 t = 10;
@@ -86,6 +87,20 @@ for i = 1:n2
         gfl_21(i,j) = sqrt(gfl_21(i,j) / pi);
     end
 end
+
+%NDF method selection
+
+if method == 1 % NDF with edge corrections 
+    [ndf, std_ndf] = ndf_ew(x1, y1, x2, y2, n, n2, xmin, ymin, xmax, ymax, t, max_step, bins, area);
+else % without edge corrections 
+    [ndf, std_ndf] = ndf_nocorr(x1, y1, x2, y2, n, n2, t, area, bins, max_step);
+end
+
+%NDF Vector Display
+
+xs = 1:100;
+
+scatter(xs, ndf(:,1));
 
 %DISPLAY
 
